@@ -6,6 +6,7 @@ class Pet {
     required this.def,
     required this.spd,
     required this.csc,
+    required this.image,
   });
 
   final String name;
@@ -14,6 +15,7 @@ class Pet {
   final int def;
   final int spd;
   final int csc;
+  final String image;
 }
 
 class User {
