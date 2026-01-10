@@ -65,6 +65,9 @@ flutter:
         - family: Spartan
           fonts:
               - asset: fonts/LeagueSpartan-Regular.ttf
+        - family: Notable
+          fonts:
+              - asset: fonts/Notable-Regular.ttf
     #   - images/a_dot_burr.jpeg
     #   - images/a_dot_ham.jpeg
 

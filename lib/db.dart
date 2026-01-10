@@ -25,6 +25,7 @@ Future<AppState> refreshAppState() async {
         name: "Patchy mix",
         image: "dog.png",
       ),
+      points: 20,
     ),
     events: [
       Event(

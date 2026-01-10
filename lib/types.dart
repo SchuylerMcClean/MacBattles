@@ -19,11 +19,17 @@ class Pet {
 }
 
 class User {
-  const User({required this.pet, required this.id, required this.name});
+  const User({
+    required this.pet,
+    required this.id,
+    required this.name,
+    required this.points,
+  });
 
   final String name;
   final Pet pet;
   final String id; // UUID
+  final int points;
 }
 
 class Event {

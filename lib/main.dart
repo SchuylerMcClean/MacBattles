@@ -12,7 +12,7 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
   await initializeDB();
-  const title = 'Mac Battles';
+  const title = 'MacBattles';
 
   runApp(MyApp(title: title));
 }
@@ -45,6 +45,7 @@ class _MyApp extends State<MyApp> {
           name: "Patchy mix",
           image: "dog.png",
         ),
+        points: 20,
       ),
       events: [
         Event(
@@ -119,7 +120,13 @@ class _MyApp extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.colorScheme.onSecondary,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            color: theme.colorScheme.secondary,
+            fontFamily: "Notable",
+          ),
+        ),
       ),
       body: Center(child: w),
       bottomNavigationBar: navbar(context, curPage),
