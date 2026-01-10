@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mac_battles/types.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 
 Future<void> initializeDB() async {
   await Supabase.initialize(
@@ -10,5 +10,29 @@ Future<void> initializeDB() async {
 }
 
 Future<AppState> refreshAppState() async {
-  throw UnimplementedError("refreshAppState is not implemented");
+  //throw UnimplementedError("refreshAppState is not implemented");
+
+  return AppState(
+    user: User(
+      name: "Test User",
+      id: "Some UUID",
+      pet: Pet(
+        level: 5,
+        atk: 3,
+        def: 3,
+        spd: 3,
+        csc: 3,
+        name: "Patchy mix",
+        image: "dog.png",
+      ),
+    ),
+    events: [
+      Event(
+        name: "Test",
+        image: "http://google.images.com/",
+        startTime: DateTime(2025),
+        endTime: DateTime(2026),
+      ),
+    ],
+  );
 }

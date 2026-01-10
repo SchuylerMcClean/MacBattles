@@ -27,8 +27,34 @@ class _MyApp extends State<MyApp> {
   AppState? _state;
 
   void _loadState() async {
-    setState(() async {
-      _state = await refreshAppState();
+    //var newState = await refreshAppState();
+
+    var newState = AppState(
+      user: User(
+        name: "Test User",
+        id: "Some UUID",
+        pet: Pet(
+          level: 5,
+          atk: 3,
+          def: 3,
+          spd: 3,
+          csc: 3,
+          name: "Patchy mix",
+          image: "dog.png",
+        ),
+      ),
+      events: [
+        Event(
+          name: "Test",
+          image: "http://google.images.com/",
+          startTime: DateTime(2025),
+          endTime: DateTime(2026),
+        ),
+      ],
+    );
+
+    setState(() {
+      _state = newState;
     });
   }
 
@@ -82,8 +108,8 @@ class _MyApp extends State<MyApp> {
     var theme = ThemeData(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: surface,
-        onPrimary: primary,
+        primary: primary,
+        onPrimary: surface,
         secondary: secondary,
         onSecondary: dark,
         error: secondary,
@@ -93,14 +119,16 @@ class _MyApp extends State<MyApp> {
       ),
     );
 
-    if (_state == null) {
+    /*if (_state == null) {
       _loadState();
       return MaterialApp(
         title: widget.title,
         theme: theme,
         home: Scaffold(body: Center(child: CircularProgressIndicator())),
       );
-    }
+    }*/
+
+    _loadState();
 
     return MaterialApp(
       title: widget.title,

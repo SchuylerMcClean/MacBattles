@@ -1,68 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:mac_battles/types.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.pet});
+  const HomePage({super.key, required this.user});
 
-  final Pet pet;
+  final User user;
+
+  Widget burnt_button(
+    BuildContext context,
+    String text,
+    Function()? onPressed,
+  ) {
+    return ElevatedButton(
+      onPressed: onPressed, // TODO:
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(
+          Theme.of(context).colorScheme.primary,
+        ),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F7EB),
-      color: Color(0xFF764248),
-      body: const Center(
-        
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            child: Text(
-                "Welcome back, user!",
-                style: TextStyle(fontSize: 24),
+            Text("Welcome back, ${user.name}!", style: TextStyle(fontSize: 24)),
+            Text(
+              user.pet.name,
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            child: Text(
-                "${pet.name}",
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Image(image: AssetImage(user.pet.image), width: 200),
+            Text("Level ${user.pet.level}", style: TextStyle(fontSize: 20)),
+            Text(
+              "BATTLE",
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            child: Image(
-                image: AssetImage('${pet.image}'),
-                width: 200,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(width: 30),
+                Expanded(child: burnt_button(context, "Join", () {})),
+                SizedBox(width: 30),
+                Expanded(child: burnt_button(context, "Host", () {})),
+                SizedBox(width: 30),
+              ],
             ),
-            child: Text(
-                "Level ${pet.level}",
-                style: TextStyle(fontSize: 20)
-            ),
-            child: Text(
-                "BATTLE",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)
-            ),
-            child: Row(
-                MainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                    Expanded(
-                        child: ElevatedButton(
-                        onPressed: () {}, // TODO: open dialog
-                        child: const Text("Join"),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF764248),
-                            color: Color(0xFFF6F7EB),
-                        ),
-                    ),
-                    SizedBox(width: 20),
-                    Expanded(
-                        child: ElevatedButton(
-                        onPressed: () {}, // TODO: generate code
-                        child: const Text("Host"),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF764248),
-                            color: Color(0xFFF6F7EB),
-                        ),
-                    ),
-                ]
-            )
-          ]
-        )
+          ],
+        ),
       ),
     );
   }
