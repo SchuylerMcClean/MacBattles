@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mac_battles/db.dart';
+import 'package:mac_battles/events.dart';
 import 'package:mac_battles/homepage.dart';
 import 'package:mac_battles/types.dart';
+
+enum PageOpen { Home, Events, Upgrade }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,42 +61,68 @@ class _MyApp extends State<MyApp> {
     });
   }
 
-  Widget inAppScreen(BuildContext context, Widget w) {
+  Widget navbar(BuildContext context, PageOpen curPage) {
+    var theme = Theme.of(context);
+
+    return BottomAppBar(
+      color: theme.colorScheme.onSecondary,
+      child: SizedBox(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.home,
+                color: curPage == PageOpen.Home
+                    ? theme.colorScheme.tertiary
+                    : theme.colorScheme.surface,
+                size: 50,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.event,
+                color: curPage == PageOpen.Events
+                    ? theme.colorScheme.tertiary
+                    : theme.colorScheme.surface,
+                size: 50,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/events');
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.upgrade,
+                color: curPage == PageOpen.Upgrade
+                    ? theme.colorScheme.tertiary
+                    : theme.colorScheme.surface,
+                size: 50,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/upgrade');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget inAppScreen(BuildContext context, Widget w, PageOpen curPage) {
+    var theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        backgroundColor: theme.colorScheme.onSecondary,
         title: Text(widget.title),
       ),
       body: Center(child: w),
-      bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).colorScheme.onSecondary,
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.home),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.event),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/events');
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.upgrade),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/upgrade');
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: navbar(context, curPage),
     );
   }
 
@@ -116,7 +145,9 @@ class _MyApp extends State<MyApp> {
         onError: dark,
         surface: surface,
         onSurface: dark,
+        tertiary: highlight,
       ),
+      fontFamily: "Spartan",
     );
 
     /*if (_state == null) {
@@ -135,7 +166,13 @@ class _MyApp extends State<MyApp> {
       theme: theme,
       initialRoute: '/',
       routes: {
-        '/': (context) => inAppScreen(context, HomePage(user: _state!.user)),
+        '/': (context) =>
+            inAppScreen(context, HomePage(user: _state!.user), PageOpen.Home),
+        '/events': (context) => inAppScreen(
+          context,
+          EventsPage(events: _state!.events),
+          PageOpen.Events,
+        ),
       },
     );
   }

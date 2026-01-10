@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mac_battles/types.dart';
 
-class Events extends StatelessWidget {
+class EventsPage extends StatelessWidget {
   final List<Event> events;
 
-  const Events({super.key, required this.events});
+  const EventsPage({super.key, required this.events});
 
   @override
   Widget build(BuildContext context) {
