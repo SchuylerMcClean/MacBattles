@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mac_battles/db.dart';
 import 'package:mac_battles/events.dart';
 import 'package:mac_battles/homepage.dart';
+import 'package:mac_battles/upgrade.dart';
 import 'package:mac_battles/types.dart';
 
 enum PageOpen { Home, Events, Upgrade }
@@ -172,6 +173,11 @@ class _MyApp extends State<MyApp> {
           context,
           EventsPage(events: _state!.events),
           PageOpen.Events,
+        ),
+        '/upgrade': (context) => inAppScreen(
+          context,
+          UpgradePage(user: _state!.user),
+          PageOpen.Upgrade,
         ),
       },
     );
