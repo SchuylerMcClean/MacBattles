@@ -35,10 +35,39 @@ class _MyApp extends State<MyApp> {
   Widget inAppScreen(BuildContext context, Widget w) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
         title: Text(widget.title),
       ),
       body: Center(child: w),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.onSecondary,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.event),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/events');
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.upgrade),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/upgrade');
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
