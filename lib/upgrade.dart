@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mac_battles/types.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.user});
+class UpgradePage extends StatelessWidget {
+  const UpgradePage({super.key, required this.user});
 
   final User user;
   final int cost = 45;
