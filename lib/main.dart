@@ -31,9 +31,9 @@ class _MyApp extends State<MyApp> {
   AppState? _state;
 
   void _loadState() async {
-    //var newState = await refreshAppState();
+    var newState = await refreshAppState();
 
-    var newState = AppState(
+    /*var newState = AppState(
       user: User(
         name: "Test User",
         id: "Some UUID",
@@ -56,11 +56,9 @@ class _MyApp extends State<MyApp> {
           endTime: DateTime(2026),
         ),
       ],
-    );
+    );*/
 
-    setState(() {
-      _state = newState;
-    });
+    setState(() => _state = newState);
   }
 
   Widget navbar(BuildContext context, PageOpen curPage) {

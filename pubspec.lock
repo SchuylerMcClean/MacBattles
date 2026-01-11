@@ -264,6 +264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  local_ip_plugin:
+    dependency: "direct main"
+    description:
+      name: local_ip_plugin
+      sha256: "56dd7b4fd396c2b326a376721e95abb11797a6cc027a00ffa725a3788ebdc5d9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   logging:
     dependency: transitive
     description:
