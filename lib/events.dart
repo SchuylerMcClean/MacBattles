@@ -6,6 +6,10 @@ class EventsPage extends StatelessWidget {
 
   const EventsPage({super.key, required this.events});
 
+  String _formatDate(DateTime date) {
+    return "${date.hour}:${date.minute}";
+  }
+
   @override
   Widget build(BuildContext context) {
     if (events.isEmpty) {
@@ -15,18 +19,23 @@ class EventsPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Event Right Now!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 20),
             Image.network(events[0].image, width: 200),
+            SizedBox(height: 20),
             Text(events[0].name),
+            SizedBox(height: 20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(events[0].startTime.toString()),
+                Text(_formatDate(events[0].startTime)),
                 Text(" - "),
-                Text(events[0].endTime.toString()),
+                Text(_formatDate(events[0].endTime)),
               ],
             ),
           ],
