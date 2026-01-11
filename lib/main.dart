@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mac_battles/battle.dart';
 import 'package:mac_battles/db.dart';
 import 'package:mac_battles/events.dart';
 import 'package:mac_battles/homepage.dart';
 import 'package:mac_battles/upgrade.dart';
 import 'package:mac_battles/types.dart';
 
-enum PageOpen { Home, Events, Upgrade }
+enum PageOpen { Home, Events, Upgrade, Battle }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -211,6 +212,8 @@ class _MyApp extends State<MyApp> {
           ),
           PageOpen.Upgrade,
         ),
+        '/battle': (context) =>
+            inAppScreen(context, BattlePage(onWin: addPoints), PageOpen.Battle),
       },
     );
   }

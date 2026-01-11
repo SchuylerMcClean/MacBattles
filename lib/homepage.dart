@@ -94,9 +94,7 @@ class _HomePage extends State<HomePage> {
                             burnt_button(
                               context,
                               "Join",
-                              () => {
-                                // TODO: Play battle
-                              },
+                              () => {Navigator.pushNamed(context, "/battle")},
                             ),
                           ],
                         ),

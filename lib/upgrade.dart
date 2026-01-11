@@ -42,7 +42,6 @@ class UpgradePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text("$currentValue%->${currentValue + 5}%"),
-              SizedBox(width: 10),
               Text("${cost}pts"),
             ],
           ),
@@ -63,7 +62,16 @@ class UpgradePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(user.pet.image),
+            Text(
+              user.pet.name,
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            ),
+            Image(image: AssetImage(user.pet.image), width: 200),
+            Text("Level: ${user.pet.level}", style: TextStyle(fontSize: 24)),
+            Text(
+              "Pts Available: ${user.points}",
+              style: TextStyle(fontSize: 24),
+            ),
 
             SizedBox(height: 20),
 
