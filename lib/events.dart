@@ -26,7 +26,7 @@ class EventsPage extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
-            Image.network(events[0].image, width: 200),
+            Image.asset(events[0].image, width: 400),
             SizedBox(height: 20),
             Text(events[0].name),
             SizedBox(height: 20),
