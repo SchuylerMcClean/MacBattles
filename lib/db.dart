@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mac_battles/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
@@ -12,28 +13,58 @@ Future<void> initializeDB() async {
 Future<AppState> refreshAppState() async {
   //throw UnimplementedError("refreshAppState is not implemented");
 
+  final supabase = Supabase.instance.client;
+
+  debugPrint(
+    "Event count ${(await supabase.from("Events").select("*").order("start_date", ascending: false).count()).count.toString()}",
+  );
+
+  var userMap = await supabase
+      .from("Users")
+      .select("*")
+      .eq("id", dotenv.env['USER_ID'] ?? '')
+      .single();
+
+  debugPrint("User Map: $userMap");
+
+  var petMap = await supabase
+      .from("Pets")
+      .select("*")
+      .eq("id", userMap['pet_id'] as String)
+      .single();
+
   return AppState(
     user: User(
-      name: "Test User",
-      id: "Some UUID",
+      name: userMap['name'],
+      id: userMap['id'],
       pet: Pet(
-        level: 5,
-        atk: 3,
-        def: 3,
-        spd: 3,
-        csc: 3,
-        name: "Patchy mix",
-        image: "dog.png",
+        //id: data['pet_id'],
+        name: petMap['name'],
+        image: petMap['image'],
+        level: petMap['level'],
+        atk: petMap['atk'],
+        def: petMap['def'],
+        spd: petMap['spd'],
+        csc: petMap['csc'],
       ),
-      points: 20,
+      points: userMap['points'],
     ),
-    events: [
-      Event(
-        name: "Test",
-        image: "http://google.images.com/",
-        startTime: DateTime(2025),
-        endTime: DateTime(2026),
-      ),
-    ],
+    events:
+        (await supabase
+                .from("Events")
+                .select("*")
+                .order("start_date", ascending: false)
+                .limit(1)
+                .then(
+                  (data) => data.map<Event>(
+                    (e) => Event(
+                      name: e['name'],
+                      image: e['image'],
+                      startTime: DateTime.parse(e['start_date']),
+                      endTime: DateTime.parse(e['end_date']),
+                    ),
+                  ),
+                ))
+            .toList(),
   );
 }
