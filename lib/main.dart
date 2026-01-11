@@ -61,6 +61,32 @@ class _MyApp extends State<MyApp> {
     setState(() => _state = newState);
   }
 
+  void upgradePet(PetSkill skill, int increase) {
+    if (_state == null) {
+      debugPrint("Cannot update field in null state");
+      return;
+    }
+
+    var newState = _state!.withUpgrade(skill, increase);
+
+    // TODO: Update user in data base
+
+    setState(() => _state = newState);
+  }
+
+  void addPoints(int points) {
+    if (_state == null) {
+      debugPrint("Cannot add points in null state");
+      return;
+    }
+
+    var newState = _state!.withAddedPoints(points);
+
+    // TODO: Update user in the database
+
+    setState(() => _state = newState);
+  }
+
   Widget navbar(BuildContext context, PageOpen curPage) {
     var theme = Theme.of(context);
 
@@ -156,24 +182,22 @@ class _MyApp extends State<MyApp> {
       fontFamily: "Spartan",
     );
 
-    /*if (_state == null) {
+    if (_state == null) {
       _loadState();
-      return MaterialApp(
-        title: widget.title,
-        theme: theme,
-        home: Scaffold(body: Center(child: CircularProgressIndicator())),
-      );
-    }*/
+    }
+    const upgradeConstant = 5;
 
-    _loadState();
+    const spinner = Scaffold(body: Center(child: CircularProgressIndicator()));
 
     return MaterialApp(
       title: widget.title,
       theme: theme,
       initialRoute: '/',
       routes: {
-        '/': (context) =>
-            inAppScreen(context, HomePage(user: _state!.user), PageOpen.Home),
+        '/': (context) => _state == null
+            ? spinner
+            : inAppScreen(context, HomePage(user: _state!.user), PageOpen.Home),
+
         '/events': (context) => inAppScreen(
           context,
           EventsPage(events: _state!.events),
@@ -181,7 +205,10 @@ class _MyApp extends State<MyApp> {
         ),
         '/upgrade': (context) => inAppScreen(
           context,
-          UpgradePage(user: _state!.user),
+          UpgradePage(
+            user: _state!.user,
+            upgradeFn: (skill) => upgradePet(skill, upgradeConstant),
+          ),
           PageOpen.Upgrade,
         ),
       },

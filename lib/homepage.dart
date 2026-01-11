@@ -29,7 +29,7 @@ class _HomePage extends State<HomePage> {
     Function()? onPressed,
   ) {
     return ElevatedButton(
-      onPressed: onPressed, // TODO:
+      onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(
           Theme.of(context).colorScheme.primary,
@@ -48,25 +48,21 @@ class _HomePage extends State<HomePage> {
       getCode();
     }
 
+    var user = widget.user;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Text("Welcome back, ${user.name}!", style: TextStyle(fontSize: 24)),
             Text(
-              "Welcome back, ${widget.user.name}!",
-              style: TextStyle(fontSize: 24),
-            ),
-            Text(
-              widget.user.pet.name,
+              user.pet.name,
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            Image(image: AssetImage(widget.user.pet.image), width: 200),
-            Text(
-              "Level ${widget.user.pet.level}",
-              style: TextStyle(fontSize: 20),
-            ),
+            Image(image: AssetImage(user.pet.image), width: 200),
+            Text("Level ${user.pet.level}", style: TextStyle(fontSize: 20)),
             Text(
               "BATTLE",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),

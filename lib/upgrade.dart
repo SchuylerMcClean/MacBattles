@@ -1,10 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mac_battles/types.dart';
 
+int calculateUpgradeCost(int value) {
+  return pow(value, 1.2).floor();
+}
+
 class UpgradePage extends StatelessWidget {
-  const UpgradePage({super.key, required this.user});
+  const UpgradePage({super.key, required this.user, required this.upgradeFn});
 
   final User user;
+  final Function(PetSkill) upgradeFn;
 
   Widget buildUpgradeButton(
     BuildContext context,
@@ -45,10 +52,10 @@ class UpgradePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final atkCost = user.pet.atk * 10;
-    final defCost = user.pet.def * 10;
-    final spdCost = user.pet.spd;
-    final cscCost = user.pet.csc;
+    final atkCost = calculateUpgradeCost(user.pet.atk);
+    final defCost = calculateUpgradeCost(user.pet.def);
+    final spdCost = calculateUpgradeCost(user.pet.spd);
+    final cscCost = calculateUpgradeCost(user.pet.csc);
 
     return Scaffold(
       body: Center(
@@ -67,7 +74,7 @@ class UpgradePage extends StatelessWidget {
                   user.points,
                   user.pet.atk,
                   atkCost,
-                  () {},
+                  () => upgradeFn(PetSkill.Attack),
                 ),
                 SizedBox(width: 10),
                 Column(children: [Text("Attack"), Text("${user.pet.atk}%")]),
@@ -84,7 +91,7 @@ class UpgradePage extends StatelessWidget {
                   user.points,
                   user.pet.def,
                   defCost,
-                  () {},
+                  () => upgradeFn(PetSkill.Defense),
                 ),
                 SizedBox(width: 10),
                 Column(children: [Text("Defense"), Text("${user.pet.def}%")]),
@@ -101,7 +108,7 @@ class UpgradePage extends StatelessWidget {
                   user.points,
                   user.pet.spd,
                   spdCost,
-                  () {},
+                  () => upgradeFn(PetSkill.Speed),
                 ),
                 SizedBox(width: 10),
                 Column(children: [Text("Speed"), Text("${user.pet.spd}%")]),
@@ -118,7 +125,7 @@ class UpgradePage extends StatelessWidget {
                   user.points,
                   user.pet.csc,
                   cscCost,
-                  () {},
+                  () => upgradeFn(PetSkill.CriticalStrike),
                 ),
                 SizedBox(width: 10),
                 Column(
