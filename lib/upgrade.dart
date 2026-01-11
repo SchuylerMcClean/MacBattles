@@ -38,9 +38,10 @@ class UpgradePage extends StatelessWidget {
         children: [
           Text("UPGRADE"),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Text("$currentValue% --> ${currentValue + 5}%"),
+              Text("$currentValue%->${currentValue + 5}%"),
               SizedBox(width: 10),
               Text("${cost}pts"),
             ],
@@ -67,72 +68,187 @@ class UpgradePage extends StatelessWidget {
             SizedBox(height: 20),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                buildUpgradeButton(
-                  context,
-                  user.points,
-                  user.pet.atk,
-                  atkCost,
-                  () => upgradeFn(PetSkill.Attack),
+                SizedBox(
+                  width: 150,
+                  child: buildUpgradeButton(
+                    context,
+                    user.points,
+                    user.pet.atk,
+                    atkCost,
+                    () => upgradeFn(PetSkill.Attack),
+                  ),
                 ),
-                SizedBox(width: 10),
-                Column(children: [Text("Attack"), Text("${user.pet.atk}%")]),
+                SizedBox(
+                  width: 150,
+                  child: Column(
+                    children: [
+                      Text("Attack"),
+                      SliderTheme(
+                        // Use SliderTheme to override the default thumb shape
+                        data: SliderTheme.of(context).copyWith(
+                          // Set enabledThumbRadius and disabledThumbRadius to 0.0
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 0.0,
+                            disabledThumbRadius: 0.0,
+                          ),
+                          // Optionally hide the overlay as well
+                          overlayShape: const RoundSliderOverlayShape(
+                            overlayRadius: 0.0,
+                          ),
+                        ),
+                        child: Slider(
+                          value: user.pet.atk as double,
+                          min: 0,
+                          max: 100,
+                          onChanged: (_) => {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
 
             SizedBox(height: 10),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                buildUpgradeButton(
-                  context,
-                  user.points,
-                  user.pet.def,
-                  defCost,
-                  () => upgradeFn(PetSkill.Defense),
+                SizedBox(
+                  width: 150,
+                  child: buildUpgradeButton(
+                    context,
+                    user.points,
+                    user.pet.def,
+                    defCost,
+                    () => upgradeFn(PetSkill.Defense),
+                  ),
                 ),
-                SizedBox(width: 10),
-                Column(children: [Text("Defense"), Text("${user.pet.def}%")]),
+                SizedBox(
+                  width: 150,
+                  child: Column(
+                    children: [
+                      Text("Defense"),
+                      SliderTheme(
+                        // Use SliderTheme to override the default thumb shape
+                        data: SliderTheme.of(context).copyWith(
+                          // Set enabledThumbRadius and disabledThumbRadius to 0.0
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 0.0,
+                            disabledThumbRadius: 0.0,
+                          ),
+                          // Optionally hide the overlay as well
+                          overlayShape: const RoundSliderOverlayShape(
+                            overlayRadius: 0.0,
+                          ),
+                        ),
+                        child: Slider(
+                          value: user.pet.def as double,
+                          min: 0,
+                          max: 100,
+                          onChanged: (_) => {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
 
             SizedBox(height: 10),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                buildUpgradeButton(
-                  context,
-                  user.points,
-                  user.pet.spd,
-                  spdCost,
-                  () => upgradeFn(PetSkill.Speed),
+                SizedBox(
+                  width: 150,
+                  child: buildUpgradeButton(
+                    context,
+                    user.points,
+                    user.pet.spd,
+                    spdCost,
+                    () => upgradeFn(PetSkill.Speed),
+                  ),
                 ),
-                SizedBox(width: 10),
-                Column(children: [Text("Speed"), Text("${user.pet.spd}%")]),
+                SizedBox(
+                  width: 150,
+                  child: Column(
+                    children: [
+                      Text("Speed"),
+                      SliderTheme(
+                        // Use SliderTheme to override the default thumb shape
+                        data: SliderTheme.of(context).copyWith(
+                          // Set enabledThumbRadius and disabledThumbRadius to 0.0
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 0.0,
+                            disabledThumbRadius: 0.0,
+                          ),
+                          // Optionally hide the overlay as well
+                          overlayShape: const RoundSliderOverlayShape(
+                            overlayRadius: 0.0,
+                          ),
+                        ),
+                        child: Slider(
+                          value: user.pet.spd as double,
+                          min: 0,
+                          max: 100,
+                          onChanged: (_) => {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
 
             SizedBox(height: 10),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                buildUpgradeButton(
-                  context,
-                  user.points,
-                  user.pet.csc,
-                  cscCost,
-                  () => upgradeFn(PetSkill.CriticalStrike),
+                SizedBox(
+                  width: 150,
+                  child: buildUpgradeButton(
+                    context,
+                    user.points,
+                    user.pet.csc,
+                    cscCost,
+                    () => upgradeFn(PetSkill.CriticalStrike),
+                  ),
                 ),
-                SizedBox(width: 10),
-                Column(
-                  children: [
-                    Text("Critical Strike Chance"),
-                    Text("${user.pet.csc}%"),
-                  ],
+                SizedBox(
+                  width: 150,
+                  child: Column(
+                    children: [
+                      Text("Critical Strike Chance"),
+                      SliderTheme(
+                        // Use SliderTheme to override the default thumb shape
+                        data: SliderTheme.of(context).copyWith(
+                          // Set enabledThumbRadius and disabledThumbRadius to 0.0
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 0.0,
+                            disabledThumbRadius: 0.0,
+                          ),
+                          // Optionally hide the overlay as well
+                          overlayShape: const RoundSliderOverlayShape(
+                            overlayRadius: 0.0,
+                          ),
+                        ),
+                        child: Slider(
+                          value: user.pet.csc as double,
+                          min: 0,
+                          max: 100,
+                          onChanged: (_) => {},
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
